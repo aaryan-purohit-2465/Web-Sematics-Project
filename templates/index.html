@@ -7,40 +7,35 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <header class="hero">
+  <header>
+    <h1>Semantic Web Based Personalized Learning Assistant</h1>
+    <p>A mini project using Knowledge Graphs, RDF and SPARQL concepts.</p>
     <nav>
-      <strong>SemanticLearn KG</strong>
       <a href="#recommend">Recommendations</a>
-      <a href="#graph">Knowledge Graph</a>
-      <a href="/ontology">Ontology TTL</a>
+      <a href="#path-section">Learning Path</a>
+      <a href="#graph">Graph</a>
+      <a href="#sparql">SPARQL</a>
+      <a href="/ontology">Ontology File</a>
     </nav>
-    <section class="hero-grid">
-      <div>
-        <p class="eyebrow">Semantic Web-Based Personalized Learning Assistant</p>
-        <h1>Explainable learning paths powered by a knowledge graph.</h1>
-        <p class="lead">The system models concepts, prerequisites, resources and learner mastery as linked knowledge. It recommends what to study next and explains each suggestion using graph relations.</p>
-        <div class="actions">
-          <a class="button" href="#recommend">Try the assistant</a>
-          <a class="button secondary" href="#sparql">Query the graph</a>
-        </div>
-      </div>
-      <div class="stats-card">
-        <span>{{ overview.concepts }}</span><p>Concepts</p>
-        <span>{{ overview.resources }}</span><p>Learning resources</p>
-        <span>{{ overview.relations }}</span><p>Semantic relations</p>
-      </div>
-    </section>
   </header>
 
   <main>
-    <section class="panel" id="recommend">
-      <div class="section-heading">
-        <p class="eyebrow">Personalization</p>
-        <h2>Learner Profile</h2>
-        <p>Choose a learning goal, current mastery and preferred content style. The assistant uses prerequisite links to prevent jumping too far ahead.</p>
+    <section class="box">
+      <h2>Project Summary</h2>
+      <p>This system recommends learning resources by checking the learner profile and the relationships stored in a knowledge graph.</p>
+      <div class="stats">
+        <span><strong>{{ overview.concepts }}</strong> concepts</span>
+        <span><strong>{{ overview.resources }}</strong> resources</span>
+        <span><strong>{{ overview.relations }}</strong> relations</span>
       </div>
-      <div class="profile-grid">
-        <form id="profile-form" class="card form-card">
+    </section>
+
+    <section class="box" id="recommend">
+      <h2>Enter Learner Details</h2>
+      <p>Select the goal and current knowledge level. Then click the button to get recommended resources.</p>
+
+      <div class="two-column">
+        <form id="profile-form">
           <label>Learning goal
             <select id="goal">
               {% for concept in concepts %}
@@ -64,46 +59,40 @@
               <option value="advanced">Advanced</option>
             </select>
           </label>
+
           <div class="mastery-box">
-            <h3>Current mastery</h3>
+            <h3>Current Knowledge</h3>
             <label>Web fundamentals <input type="range" data-concept="web-basics" min="0" max="1" step="0.1" value="0.9"></label>
             <label>RDF <input type="range" data-concept="rdf" min="0" max="1" step="0.1" value="0.4"></label>
             <label>SPARQL <input type="range" data-concept="sparql" min="0" max="1" step="0.1" value="0.2"></label>
             <label>Knowledge graphs <input type="range" data-concept="knowledge-graphs" min="0" max="1" step="0.1" value="0.1"></label>
           </div>
-          <button class="button" type="submit">Generate recommendations</button>
+
+          <button type="submit">Generate Recommendations</button>
         </form>
+
         <div>
-          <h3>Recommended next resources</h3>
+          <h3>Recommended Resources</h3>
           <div id="recommendations" class="result-list"></div>
         </div>
       </div>
     </section>
 
-    <section class="panel split">
-      <div>
-        <p class="eyebrow">Adaptive sequencing</p>
-        <h2>Learning Path</h2>
-        <p>The generated path orders prerequisites before the target concept and skips concepts the learner has already mastered.</p>
-      </div>
+    <section class="box" id="path-section">
+      <h2>Learning Path</h2>
+      <p>The path shows the concepts to study in order, starting from prerequisites.</p>
       <ol id="path" class="path-list"></ol>
     </section>
 
-    <section class="panel" id="graph">
-      <div class="section-heading">
-        <p class="eyebrow">Knowledge graph</p>
-        <h2>Concept Prerequisite Network</h2>
-        <p>Each node is a concept. Arrows show prerequisite direction from required knowledge to advanced outcomes.</p>
-      </div>
+    <section class="box" id="graph">
+      <h2>Knowledge Graph View</h2>
+      <p>Nodes represent concepts. Lines show prerequisite relationships between topics.</p>
       <div id="graph-canvas" class="graph-canvas"></div>
     </section>
 
-    <section class="panel" id="sparql">
-      <div class="section-heading">
-        <p class="eyebrow">Semantic web</p>
-        <h2>SPARQL Explorer</h2>
-        <p>Install the requirements to run live SPARQL over <code>ontology.ttl</code>. A starter query is provided for demonstration.</p>
-      </div>
+    <section class="box" id="sparql">
+      <h2>SPARQL Query</h2>
+      <p>This section is for testing queries on the ontology file.</p>
       <textarea id="sparql-query" spellcheck="false">PREFIX learn: &lt;https://example.org/learn#&gt;
 PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
 
@@ -112,7 +101,7 @@ SELECT ?resource ?title ?concept WHERE {
             rdfs:label ?title ;
             learn:teaches ?concept .
 }</textarea>
-      <button id="run-sparql" class="button">Run SPARQL</button>
+      <button id="run-sparql">Run SPARQL</button>
       <pre id="sparql-output"></pre>
     </section>
   </main>
