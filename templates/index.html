@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Semantic Learning Assistant</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="hero">
+    <nav>
+      <strong>SemanticLearn KG</strong>
+      <a href="#recommend">Recommendations</a>
+      <a href="#graph">Knowledge Graph</a>
+      <a href="/ontology">Ontology TTL</a>
+    </nav>
+    <section class="hero-grid">
+      <div>
+        <p class="eyebrow">Semantic Web-Based Personalized Learning Assistant</p>
+        <h1>Explainable learning paths powered by a knowledge graph.</h1>
+        <p class="lead">The system models concepts, prerequisites, resources and learner mastery as linked knowledge. It recommends what to study next and explains each suggestion using graph relations.</p>
+        <div class="actions">
+          <a class="button" href="#recommend">Try the assistant</a>
+          <a class="button secondary" href="#sparql">Query the graph</a>
+        </div>
+      </div>
+      <div class="stats-card">
+        <span>{{ overview.concepts }}</span><p>Concepts</p>
+        <span>{{ overview.resources }}</span><p>Learning resources</p>
+        <span>{{ overview.relations }}</span><p>Semantic relations</p>
+      </div>
+    </section>
+  </header>
+
+  <main>
+    <section class="panel" id="recommend">
+      <div class="section-heading">
+        <p class="eyebrow">Personalization</p>
+        <h2>Learner Profile</h2>
+        <p>Choose a learning goal, current mastery and preferred content style. The assistant uses prerequisite links to prevent jumping too far ahead.</p>
+      </div>
+      <div class="profile-grid">
+        <form id="profile-form" class="card form-card">
+          <label>Learning goal
+            <select id="goal">
+              {% for concept in concepts %}
+              <option value="{{ concept.id }}" {% if concept.id == 'explainable-ai' %}selected{% endif %}>{{ concept.label }}</option>
+              {% endfor %}
+            </select>
+          </label>
+          <label>Preferred format
+            <select id="format">
+              <option value="any">Any</option>
+              <option value="video">Video</option>
+              <option value="article">Article</option>
+              <option value="interactive">Interactive</option>
+              <option value="lab" selected>Lab</option>
+            </select>
+          </label>
+          <label>Preferred difficulty
+            <select id="level">
+              <option value="beginner">Beginner</option>
+              <option value="intermediate" selected>Intermediate</option>
+              <option value="advanced">Advanced</option>
+            </select>
+          </label>
+          <div class="mastery-box">
+            <h3>Current mastery</h3>
+            <label>Web fundamentals <input type="range" data-concept="web-basics" min="0" max="1" step="0.1" value="0.9"></label>
+            <label>RDF <input type="range" data-concept="rdf" min="0" max="1" step="0.1" value="0.4"></label>
+            <label>SPARQL <input type="range" data-concept="sparql" min="0" max="1" step="0.1" value="0.2"></label>
+            <label>Knowledge graphs <input type="range" data-concept="knowledge-graphs" min="0" max="1" step="0.1" value="0.1"></label>
+          </div>
+          <button class="button" type="submit">Generate recommendations</button>
+        </form>
+        <div>
+          <h3>Recommended next resources</h3>
+          <div id="recommendations" class="result-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel split">
+      <div>
+        <p class="eyebrow">Adaptive sequencing</p>
+        <h2>Learning Path</h2>
+        <p>The generated path orders prerequisites before the target concept and skips concepts the learner has already mastered.</p>
+      </div>
+      <ol id="path" class="path-list"></ol>
+    </section>
+
+    <section class="panel" id="graph">
+      <div class="section-heading">
+        <p class="eyebrow">Knowledge graph</p>
+        <h2>Concept Prerequisite Network</h2>
+        <p>Each node is a concept. Arrows show prerequisite direction from required knowledge to advanced outcomes.</p>
+      </div>
+      <div id="graph-canvas" class="graph-canvas"></div>
+    </section>
+
+    <section class="panel" id="sparql">
+      <div class="section-heading">
+        <p class="eyebrow">Semantic web</p>
+        <h2>SPARQL Explorer</h2>
+        <p>Install the requirements to run live SPARQL over <code>ontology.ttl</code>. A starter query is provided for demonstration.</p>
+      </div>
+      <textarea id="sparql-query" spellcheck="false">PREFIX learn: &lt;https://example.org/learn#&gt;
+PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+
+SELECT ?resource ?title ?concept WHERE {
+  ?resource a learn:LearningResource ;
+            rdfs:label ?title ;
+            learn:teaches ?concept .
+}</textarea>
+      <button id="run-sparql" class="button">Run SPARQL</button>
+      <pre id="sparql-output"></pre>
+    </section>
+  </main>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

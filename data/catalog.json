@@ -1,0 +1,30 @@
+{
+  "concepts": [
+    {"id":"web-basics","label":"Web Fundamentals","domain":"Web","level":"beginner","description":"How browsers, servers and URLs work.","prerequisites":[]},
+    {"id":"html","label":"HTML & Structured Content","domain":"Web","level":"beginner","description":"Semantic document structure and accessible markup.","prerequisites":["web-basics"]},
+    {"id":"xml","label":"XML & Namespaces","domain":"Semantic Web","level":"beginner","description":"Structured data, schemas and qualified names.","prerequisites":["web-basics"]},
+    {"id":"rdf","label":"RDF Data Model","domain":"Semantic Web","level":"intermediate","description":"Representing facts as subject-predicate-object triples.","prerequisites":["xml"]},
+    {"id":"turtle","label":"Turtle Serialization","domain":"Semantic Web","level":"intermediate","description":"A readable syntax for RDF graphs.","prerequisites":["rdf"]},
+    {"id":"rdfs","label":"RDF Schema","domain":"Semantic Web","level":"intermediate","description":"Classes, properties, domains and ranges.","prerequisites":["rdf"]},
+    {"id":"owl","label":"OWL Ontologies","domain":"Knowledge Representation","level":"advanced","description":"Formal vocabularies, restrictions and reasoning.","prerequisites":["rdfs"]},
+    {"id":"sparql","label":"SPARQL Query Language","domain":"Semantic Web","level":"intermediate","description":"Querying and exploring RDF graphs.","prerequisites":["rdf","turtle"]},
+    {"id":"reasoning","label":"Semantic Reasoning","domain":"Knowledge Representation","level":"advanced","description":"Deriving implicit facts from ontology axioms.","prerequisites":["owl"]},
+    {"id":"knowledge-graphs","label":"Knowledge Graph Design","domain":"Knowledge Graphs","level":"advanced","description":"Modeling connected entities for discovery and inference.","prerequisites":["rdfs","sparql"]},
+    {"id":"recommendation","label":"Recommender Systems","domain":"AI","level":"intermediate","description":"Ranking content using preferences and behavior.","prerequisites":["web-basics"]},
+    {"id":"explainable-ai","label":"Explainable Recommendations","domain":"AI","level":"advanced","description":"Making recommendation decisions transparent.","prerequisites":["recommendation","knowledge-graphs"]}
+  ],
+  "resources": [
+    {"id":"res-web","title":"The Web in 20 Minutes","description":"A visual primer on requests, responses and linked documents.","format":"video","level":"beginner","duration":20,"rating":4.7,"concepts":["web-basics"]},
+    {"id":"res-html","title":"Meaningful HTML Lab","description":"Build an accessible course page using semantic elements.","format":"lab","level":"beginner","duration":35,"rating":4.6,"concepts":["html"]},
+    {"id":"res-xml","title":"XML and Namespaces Essentials","description":"Learn documents, schemas, namespaces and identifiers.","format":"article","level":"beginner","duration":25,"rating":4.5,"concepts":["xml"]},
+    {"id":"res-rdf","title":"Think in Triples","description":"An interactive introduction to RDF statements and graph identity.","format":"interactive","level":"intermediate","duration":40,"rating":4.9,"concepts":["rdf"]},
+    {"id":"res-turtle","title":"Turtle Syntax Workshop","description":"Create a compact RDF dataset and validate its triples.","format":"lab","level":"intermediate","duration":45,"rating":4.8,"concepts":["turtle","rdf"]},
+    {"id":"res-schema","title":"Vocabulary Design with RDFS","description":"Model class hierarchies, properties, domains and ranges.","format":"article","level":"intermediate","duration":35,"rating":4.6,"concepts":["rdfs"]},
+    {"id":"res-sparql","title":"SPARQL Query Playground","description":"Practice SELECT, FILTER, OPTIONAL and graph traversal.","format":"interactive","level":"intermediate","duration":55,"rating":4.9,"concepts":["sparql"]},
+    {"id":"res-owl","title":"Ontology Engineering Studio","description":"Design an OWL ontology with restrictions and consistency checks.","format":"lab","level":"advanced","duration":70,"rating":4.8,"concepts":["owl"]},
+    {"id":"res-reason","title":"Reasoning Without Mystery","description":"Understand entailment and apply a lightweight reasoner.","format":"video","level":"advanced","duration":38,"rating":4.7,"concepts":["reasoning","owl"]},
+    {"id":"res-kg","title":"Knowledge Graph Architecture","description":"Move from competency questions to a maintainable graph model.","format":"article","level":"advanced","duration":50,"rating":4.8,"concepts":["knowledge-graphs"]},
+    {"id":"res-rec","title":"Personalization Fundamentals","description":"Rank learning content using profiles, goals and feedback.","format":"video","level":"intermediate","duration":32,"rating":4.5,"concepts":["recommendation"]},
+    {"id":"res-xai","title":"Explainable Learning Paths","description":"Use graph paths to justify personalized recommendations.","format":"lab","level":"advanced","duration":65,"rating":4.9,"concepts":["explainable-ai","knowledge-graphs"]}
+  ]
+}

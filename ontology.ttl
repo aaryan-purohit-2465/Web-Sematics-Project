@@ -1,0 +1,49 @@
+@prefix learn: <https://example.org/learn#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+learn:LearningOntology a owl:Ontology ;
+    rdfs:label "Personalized Learning Knowledge Graph" .
+
+learn:Concept a owl:Class .
+learn:LearningResource a owl:Class .
+learn:Learner a owl:Class .
+learn:Domain a owl:Class .
+
+learn:requires a owl:ObjectProperty, owl:TransitiveProperty ;
+    rdfs:domain learn:Concept ; rdfs:range learn:Concept .
+learn:teaches a owl:ObjectProperty ;
+    rdfs:domain learn:LearningResource ; rdfs:range learn:Concept .
+learn:hasGoal a owl:ObjectProperty ;
+    rdfs:domain learn:Learner ; rdfs:range learn:Concept .
+learn:hasMastery a owl:DatatypeProperty ;
+    rdfs:domain learn:Learner ; rdfs:range xsd:decimal .
+learn:difficulty a owl:DatatypeProperty ; rdfs:range xsd:string .
+learn:format a owl:DatatypeProperty ; rdfs:range xsd:string .
+
+learn:web-basics a learn:Concept ; rdfs:label "Web Fundamentals" .
+learn:html a learn:Concept ; rdfs:label "HTML & Structured Content" ; learn:requires learn:web-basics .
+learn:xml a learn:Concept ; rdfs:label "XML & Namespaces" ; learn:requires learn:web-basics .
+learn:rdf a learn:Concept ; rdfs:label "RDF Data Model" ; learn:requires learn:xml .
+learn:turtle a learn:Concept ; rdfs:label "Turtle Serialization" ; learn:requires learn:rdf .
+learn:rdfs a learn:Concept ; rdfs:label "RDF Schema" ; learn:requires learn:rdf .
+learn:owl a learn:Concept ; rdfs:label "OWL Ontologies" ; learn:requires learn:rdfs .
+learn:sparql a learn:Concept ; rdfs:label "SPARQL Query Language" ; learn:requires learn:rdf, learn:turtle .
+learn:reasoning a learn:Concept ; rdfs:label "Semantic Reasoning" ; learn:requires learn:owl .
+learn:knowledge-graphs a learn:Concept ; rdfs:label "Knowledge Graph Design" ; learn:requires learn:rdfs, learn:sparql .
+learn:recommendation a learn:Concept ; rdfs:label "Recommender Systems" ; learn:requires learn:web-basics .
+learn:explainable-ai a learn:Concept ; rdfs:label "Explainable Recommendations" ; learn:requires learn:recommendation, learn:knowledge-graphs .
+
+learn:res-web a learn:LearningResource ; rdfs:label "The Web in 20 Minutes" ; learn:teaches learn:web-basics ; learn:format "video" ; learn:difficulty "beginner" .
+learn:res-xml a learn:LearningResource ; rdfs:label "XML and Namespaces Essentials" ; learn:teaches learn:xml ; learn:format "article" ; learn:difficulty "beginner" .
+learn:res-rdf a learn:LearningResource ; rdfs:label "Think in Triples" ; learn:teaches learn:rdf ; learn:format "interactive" ; learn:difficulty "intermediate" .
+learn:res-turtle a learn:LearningResource ; rdfs:label "Turtle Syntax Workshop" ; learn:teaches learn:turtle, learn:rdf ; learn:format "lab" ; learn:difficulty "intermediate" .
+learn:res-schema a learn:LearningResource ; rdfs:label "Vocabulary Design with RDFS" ; learn:teaches learn:rdfs ; learn:format "article" ; learn:difficulty "intermediate" .
+learn:res-sparql a learn:LearningResource ; rdfs:label "SPARQL Query Playground" ; learn:teaches learn:sparql ; learn:format "interactive" ; learn:difficulty "intermediate" .
+learn:res-owl a learn:LearningResource ; rdfs:label "Ontology Engineering Studio" ; learn:teaches learn:owl ; learn:format "lab" ; learn:difficulty "advanced" .
+learn:res-reason a learn:LearningResource ; rdfs:label "Reasoning Without Mystery" ; learn:teaches learn:reasoning, learn:owl ; learn:format "video" ; learn:difficulty "advanced" .
+learn:res-kg a learn:LearningResource ; rdfs:label "Knowledge Graph Architecture" ; learn:teaches learn:knowledge-graphs ; learn:format "article" ; learn:difficulty "advanced" .
+learn:res-rec a learn:LearningResource ; rdfs:label "Personalization Fundamentals" ; learn:teaches learn:recommendation ; learn:format "video" ; learn:difficulty "intermediate" .
+learn:res-xai a learn:LearningResource ; rdfs:label "Explainable Learning Paths" ; learn:teaches learn:explainable-ai, learn:knowledge-graphs ; learn:format "lab" ; learn:difficulty "advanced" .
