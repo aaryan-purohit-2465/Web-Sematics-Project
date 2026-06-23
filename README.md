@@ -34,7 +34,7 @@ If RDFLib is not installed, the main assistant still works; only the SPARQL expl
 ## Run Tests
 
 ```powershell
-python -m pytest
+python -m unittest discover -s tests
 ```
 
 ## Project Structure
